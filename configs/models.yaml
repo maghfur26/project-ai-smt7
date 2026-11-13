@@ -1,0 +1,23 @@
+# Model registry used by scripts/run_all.py.
+seeds: [42, 123, 2024]
+
+models:
+  - key: indobert-lite
+    name: indobenchmark/indobert-lite-base-p2
+    max_length: 128
+  - key: indobert-base
+    name: indobenchmark/indobert-base-p1
+    max_length: 128
+  - key: indobertweet
+    name: indolem/indobertweet-base-uncased
+    max_length: 128
+  - key: mbert
+    name: bert-base-multilingual-cased
+    max_length: 128
+  - key: xlmr
+    name: xlm-roberta-base
+    max_length: 128
+  - key: distilbert-multilingual
+    name: distilbert-base-multilingual-cased
+    max_length: 128
+    optional: true

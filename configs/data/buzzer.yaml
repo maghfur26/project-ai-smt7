@@ -1,0 +1,64 @@
+task: buzzer
+seed: 42
+raw_dir: data/raw/buzzer
+output_dir: data/processed/buzzer
+deduplicate: false
+
+cleaning:
+  keep_emoji: true
+
+split:
+  train: 0.8
+  val: 0.1
+  test: 0.1
+
+weak_label:
+  similarity_threshold: 0.85
+  min_cluster_size: 3
+  neighbors: 20
+  score_threshold: 0.3
+  weights:
+    cluster: 0.5
+    hashtag: 0.15
+    link: 0.15
+    lexicon: 0.2
+  lexicon:
+    - ayo
+    - sebarkan
+    - viralkan
+    - bagikan
+    - ikuti
+    - follow
+    - like
+    - komentar
+    - share
+    - klik
+    - promo
+    - diskon
+    - gratis
+    - dukung
+    - pilih
+    - menangkan
+    - golput
+    - buzzer
+    - buzzerbayaran
+    - sebarluaskan
+    - trending
+    - serbu
+    - balas
+    - tag
+    - viral
+    - kampanye
+    - provokasi
+
+sources:
+  - name: rizalespe_pilkada_tweets
+    url: https://raw.githubusercontent.com/rizalespe/Dataset-Sentimen-Analisis-Bahasa-Indonesia/master/dataset_tweet_sentiment_pilkada_DKI_2017.csv
+    filename: rizalespe_pilkada_tweets.csv
+    text_col: Text Tweet
+    label_col: null
+    domain: twitter
+
+  # Optional: place a larger public Indonesian political tweet corpus here.
+  # The corpus should contain a text column and, if available, user_id and
+  # timestamp columns. See data/DATASET_CARD.md.

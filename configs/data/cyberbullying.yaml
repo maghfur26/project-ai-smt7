@@ -1,0 +1,47 @@
+task: cyberbullying
+seed: 42
+raw_dir: data/raw/cyberbullying
+output_dir: data/processed/cyberbullying
+deduplicate: true
+group_near_duplicates: true
+near_duplicate_threshold: 0.9
+near_duplicate_neighbors: 20
+
+cleaning:
+  keep_emoji: true
+
+split:
+  train: 0.8
+  val: 0.1
+  test: 0.1
+
+sources:
+  - name: cahkanor_instagram
+    url: https://raw.githubusercontent.com/cahkanor/id-cyberbullying-instagram/master/id-cyberbullying-instagram.tsv
+    filename: cahkanor_instagram.tsv
+    text_col: text
+    label_col: label
+    label_map:
+      CB: 1
+      Non_CB: 0
+    domain: instagram
+
+  - name: rizalespe_instagram
+    url: https://raw.githubusercontent.com/rizalespe/Dataset-Sentimen-Analisis-Bahasa-Indonesia/master/dataset_komentar_instagram_cyberbullying.csv
+    filename: rizalespe_instagram.csv
+    text_col: Instagram Comment Text
+    label_col: Sentiment
+    label_map:
+      negative: 1
+      positive: 0
+    domain: instagram
+
+  - name: rhiosutoyo_tiktok
+    url: https://raw.githubusercontent.com/rhiosutoyo/Indonesian-TikTok-Cyberbullying-Comments-Dataset/main/Dataset-Research.csv
+    filename: rhiosutoyo_tiktok.csv
+    text_col: comment
+    label_col: sentiment
+    label_map:
+      "-1": 1
+      "1": 0
+    domain: tiktok

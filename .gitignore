@@ -1,0 +1,26 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Raw and processed data
+data/raw/*
+data/interim/*
+data/processed/*
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# Model artefacts and experiment outputs
+results/models/
+results/logs/
+results/figures/*.png
+results/metrics.csv
+results/tables/*.csv
+
+# OS
+.DS_Store
+
+# Colab upload archive
+slm-buzzer-cyberbullying.zip

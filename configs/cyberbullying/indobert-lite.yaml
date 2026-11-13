@@ -1,0 +1,26 @@
+task: cyberbullying
+run_name: cyber_indobert-lite_s42
+seed: 42
+
+data:
+  processed_dir: data/processed/cyberbullying
+  text_col: text
+  label_col: label
+  num_labels: 2
+
+model:
+  name: indobenchmark/indobert-lite-base-p2
+  max_length: 128
+
+training:
+  epochs: 4
+  batch_size: 16
+  eval_batch_size: 32
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  gradient_accumulation_steps: 1
+  logging_steps: 10
+  early_stopping_patience: 2
+  metric_for_best_model: macro_f1
+  fp16: true
