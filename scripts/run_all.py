@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.training.trainer import run_experiment  # noqa: E402
 from src.utils.config import load_config  # noqa: E402
+from src.utils.io import copy_json_artifacts  # noqa: E402
 
 
 def _merge(base: dict, model: dict, seed: int, model_key: str) -> dict:
@@ -34,6 +35,10 @@ def main() -> None:
     parser.add_argument("--models", help="Comma-separated model keys to run.")
     parser.add_argument("--seeds", help="Comma-separated seeds to override the registry.")
     parser.add_argument("--include-optional", action="store_true")
+    parser.add_argument(
+        "--backup-dir",
+        help="Copy metrics/efficiency/report JSON per run to this directory.",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -63,6 +68,10 @@ def main() -> None:
             try:
                 result = run_experiment(config)
                 print(f"macro_f1={result['metrics'].get('macro_f1')}")
+                if args.backup_dir:
+                    backup_path = Path(args.backup_dir) / config["run_name"]
+                    copy_json_artifacts(result["output_dir"], backup_path)
+                    print(f"backup={backup_path}")
             except Exception as error:  # pragma: no cover - CLI guard
                 traceback.print_exc()
                 failures.append((config["run_name"], str(error)))

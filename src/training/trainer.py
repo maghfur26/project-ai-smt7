@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import inspect
+import shutil
 import time
 from pathlib import Path
 from typing import Any
@@ -63,6 +64,7 @@ def _training_arguments(
         "metric_for_best_model": training.get("metric_for_best_model", "macro_f1"),
         "greater_is_better": True,
         "save_total_limit": 2,
+        "save_only_model": True,
         "fp16": fp16,
         "report_to": [],
         "seed": int(config.get("seed", 42)),
@@ -123,6 +125,13 @@ def _build_trainer(**kwargs: Any) -> Any:
         if "tokenizer" in kwargs:
             kwargs["processing_class"] = kwargs.pop("tokenizer")
         return trainer_class(**kwargs)
+
+
+def cleanup_checkpoints(output_dir: str | Path) -> None:
+    """Remove trainer checkpoints; the final model is already saved separately."""
+    checkpoints = Path(output_dir) / "checkpoints"
+    if checkpoints.exists():
+        shutil.rmtree(checkpoints, ignore_errors=True)
 
 
 def _strip_prefix(metrics: dict[str, Any], prefix: str) -> dict[str, float]:
@@ -248,6 +257,7 @@ def run_experiment(config: dict[str, Any]) -> dict[str, Any]:
 
     trainer.save_model(str(output_dir / "model"))
     tokenizer.save_pretrained(str(output_dir / "model"))
+    cleanup_checkpoints(output_dir)
 
     efficiency = {
         "parameters": count_parameters(model),

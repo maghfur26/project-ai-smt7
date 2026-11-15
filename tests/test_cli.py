@@ -29,3 +29,15 @@ def test_script_help_runs(script):
     )
     assert result.returncode == 0, result.stderr
     assert "usage:" in result.stdout.lower()
+
+
+def test_run_all_help_documents_backup_dir():
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/run_all.py"), "--help"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    assert "--backup-dir" in result.stdout

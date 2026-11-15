@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import csv
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -64,3 +65,16 @@ def read_json(path: str | Path) -> Any:
     """Read a UTF-8 JSON file."""
     with Path(path).open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def copy_json_artifacts(source_dir: str | Path, dest_dir: str | Path) -> list[Path]:
+    """Copy small JSON artefacts (not model weights) into a backup directory."""
+    source = Path(source_dir)
+    destination = Path(dest_dir)
+    copied: list[Path] = []
+    for path in sorted(source.glob("*.json")):
+        target = destination / path.name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, target)
+        copied.append(target)
+    return copied

@@ -104,6 +104,16 @@ python scripts/run_all.py --task buzzer --include-optional
 python scripts/run_all.py --task cyberbullying --dry-run
 ```
 
+Untuk menyimpan metrik tiap run ke lokasi lain (misalnya Google Drive di Colab)
+agar aman saat runtime ter-reset:
+
+```bash
+python scripts/run_all.py --task cyberbullying --backup-dir /content/drive/MyDrive/slm_metrics
+```
+
+Checkpoint trainer dihapus otomatis setelah model final disimpan, sehingga 30 run
+tidak memenuhi disk Colab.
+
 Artefak per run disimpan di `results/models/<run_name>/`:
 
 ```
@@ -191,7 +201,7 @@ laporan, bukan dihasilkan otomatis.
 
 ## Status Verifikasi
 
-- `pytest -q`: **51 passed**.
+- `pytest -q`: **55 passed**.
 - Prepare data publik cyberbullying: 2.208 baris mentah, 2.191 setelah dedup
   (7 baris dengan label bertentangan dibuang), split 1.751/221/219.
 - Prepare data buzzer: 900 baris, 890 setelah pembersihan, 120 label lemah
