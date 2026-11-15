@@ -148,11 +148,11 @@ python scripts/predict.py \
 
 ## Colab / Kaggle
 
-Arsip proyek siap unggah tersedia di `slm-buzzer-cyberbullying.zip` (tanpa
-`.venv`, data mentah, dan checkpoint). Unggah zip tersebut ke panel **Files** di
-Colab, lalu buka `notebooks/02_colab_train.ipynb`. Notebook melakukan:
+Repositori: https://github.com/maghfur26/project-ai-smt7
 
-0. Ekstrak zip ke `/content/slm-buzzer-cyberbullying`.
+Buka `notebooks/02_colab_train.ipynb` di Colab. Notebook melakukan:
+
+0. Clone repo ke `/content/project-ai-smt7`.
 1. Pemeriksaan GPU.
 2. Instalasi dependency.
 3. Mount Google Drive untuk checkpoint.
@@ -161,8 +161,9 @@ Colab, lalu buka `notebooks/02_colab_train.ipynb`. Notebook melakukan:
 6. Agregasi hasil.
 7. Unduh artefak.
 
-Alternatif tanpa unggah manual: push proyek ke GitHub lalu ganti sel ekstrak
-dengan `!git clone <URL_REPO>` dan sesuaikan `PROJECT_DIR`.
+Alternatif jika ingin memakai arsip: unggah `slm-buzzer-cyberbullying.zip`
+(tanpa `.venv`, data mentah, dan checkpoint) ke panel **Files**, ekstrak ke
+`/content/`, lalu sesuaikan `PROJECT_DIR`.
 
 Estimasi: 5 model x 2 tugas x 3 seed = 30 run. Pada dataset kecil, satu run
 IndoBERT-lite di GPU T4 berkisar beberapa menit; total 5–8 jam GPU. Untuk kuota
