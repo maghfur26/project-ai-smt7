@@ -1,0 +1,14 @@
+# Registry cepat untuk eksperimen hemat resource (Colab T4).
+# 3 model inti, 1 seed, max_length 64.
+seeds: [42]
+
+models:
+  - key: indobert-lite
+    name: indobenchmark/indobert-lite-base-p2
+    max_length: 64
+  - key: indobert-base
+    name: indobenchmark/indobert-base-p1
+    max_length: 64
+  - key: mbert
+    name: bert-base-multilingual-cased
+    max_length: 64

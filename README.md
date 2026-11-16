@@ -114,6 +114,25 @@ python scripts/run_all.py --task cyberbullying --backup-dir /content/drive/MyDri
 Checkpoint trainer dihapus otomatis setelah model final disimpan, sehingga 30 run
 tidak memenuhi disk Colab.
 
+### Profil cepat (hemat disk dan waktu)
+
+Untuk kuota GPU/disk terbatas, gunakan 3 model inti, 1 seed, `max_length` 64,
+2 epoch, dan batch 32 (6 run, sekitar 1 jam di T4):
+
+```bash
+python scripts/run_all.py --task cyberbullying \
+  --config configs/cyberbullying/fast.yaml \
+  --models-config configs/models_fast.yaml \
+  --backup-dir /content/drive/MyDrive/slm_metrics
+python scripts/run_all.py --task buzzer \
+  --config configs/buzzer/fast.yaml \
+  --models-config configs/models_fast.yaml \
+  --backup-dir /content/drive/MyDrive/slm_metrics
+```
+
+Model yang dijalankan: IndoBERT-lite, IndoBERT-base, mBERT. Untuk hasil final
+yang lebih kuat, jalankan profil penuh (5 model x 2 tugas x 3 seed).
+
 Artefak per run disimpan di `results/models/<run_name>/`:
 
 ```
@@ -177,7 +196,8 @@ Alternatif jika ingin memakai arsip: unggah `slm-buzzer-cyberbullying.zip`
 
 Estimasi: 5 model x 2 tugas x 3 seed = 30 run. Pada dataset kecil, satu run
 IndoBERT-lite di GPU T4 berkisar beberapa menit; total 5–8 jam GPU. Untuk kuota
-terbatas, jalankan per model/seed dan lanjutkan dari checkpoint.
+terbatas, gunakan profil cepat (6 run, sekitar 1 jam) atau jalankan per model/seed
+dan lanjutkan dari checkpoint.
 
 ## Hasil yang Diharapkan
 
